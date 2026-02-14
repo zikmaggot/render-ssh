@@ -6,6 +6,7 @@ RUN apt-get update && \
     mkdir -p /var/run/sshd && \
     mkdir -p /var/log && \
     echo 'root:admin123' | chpasswd && \
+    sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd \
     sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#Port 22/Port 22/' /etc/ssh/sshd_config && \
