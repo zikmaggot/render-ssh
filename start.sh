@@ -4,7 +4,7 @@ echo "=== VPS STARTUP ==="
 
 # 1. Khởi động SSHD trực tiếp (background + log)
 echo "Starting SSHD..."
-/usr/sbin/sshd -D -e >> /var/log/sshd.log 2>&1 &
+/usr/sbin/sshd -D -o UsePAM=no -e >> /var/log/sshd.log 2>&1 &
 
 # Đợi 3 giây để SSHD khởi động
 sleep 3
