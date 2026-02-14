@@ -25,6 +25,7 @@ RUN curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | \
     echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | \
     tee /etc/apt/sources.list.d/ngrok.list && \
     apt-get update && apt-get install -y ngrok
+RUN ngrok config add-authtoken 1oHr0bmrHmmugplqkqaaIH01QeP_2njJd1wcmomMKRuvc7XNJ
 
 # Copy script + cron
 COPY start.sh /start.sh
