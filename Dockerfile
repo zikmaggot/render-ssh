@@ -1,16 +1,18 @@
 FROM ubuntu:22.04
 
 # Cài đặt hệ thống + SSH + cron + tools
+# Установка системы + SSH + cron + tools
 RUN apt-get update && \
-    apt-get install -y openssh-server python3 python3-pip curl nano vim htop net-tools git cron && \
+    apt-get install -y openssh-server python3 python3-pip curl nano vim htop net-tools iproute2 git cron && \
     mkdir -p /var/run/sshd && \
     mkdir -p /var/log && \
     echo 'root:admin123' | chpasswd && \
-    sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd \
+    # Исправленный блок sed
+    sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' /etc/pam.d/sshd && \
     sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#Port 22/Port 22/' /etc/ssh/sshd_config && \
-    # Tạo host keys (rất quan trọng!)
+    # Генерация ключей хоста
     ssh-keygen -A && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
