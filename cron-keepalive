@@ -1,0 +1,1 @@
+*/10 * * * * root curl -s -o /dev/null "http://localhost:10000/ping" || true
